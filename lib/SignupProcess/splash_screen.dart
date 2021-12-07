@@ -3,6 +3,7 @@ import 'package:cryptowatch/SignupProcess/OnboardingScreen.dart';
 import 'package:cryptowatch/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 
 
@@ -25,8 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   _navigateToHome()async{
     await Future.delayed(Duration(milliseconds: 7000), (){});
 
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> OnboardingScreen() 
-     ));
+    Navigator.of(context).pushReplacement(  PageTransition(child: OnboardingScreen(), type: PageTransitionType.fade, duration: Duration(milliseconds: 1500), curve: Curves.fastLinearToSlowEaseIn) );
   }
 
   @override
