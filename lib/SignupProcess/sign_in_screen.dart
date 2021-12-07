@@ -1,3 +1,4 @@
+import 'package:cryptowatch/SignupProcess/login_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,7 +39,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
               
-              SizedBox(height: 35),
+              SizedBox(height: 65),
               TextFormField(
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -118,7 +119,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 alignment: Alignment.center,
                 child: RichText(
                   text: TextSpan(
-                      text: 'I already have an account. ',
+                      text: 'I already have an account, ',
                       style: TextStyle(
                           fontSize: 14,
                           color: Colors.black,
@@ -130,10 +131,10 @@ class _SignInScreenState extends State<SignInScreen> {
                             style: TextStyle(color: PrimaryBlu2e),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                // Navigator.of(context).pushAndRemoveUntil(
-                                //     MaterialPageRoute(
-                                //         builder: (context) => LoginScreen()),
-                                //     (route) => false);
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginScreen()),
+                                    (route) => false);
                               }),
                       ]),
                 ),
