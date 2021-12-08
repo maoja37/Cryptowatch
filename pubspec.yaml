@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^2.1.0
   animated_text_kit: ^4.2.1
   page_transition: ^2.0.4
+  pin_code_fields: ^7.3.0
 
 dev_dependencies:
   flutter_test:
