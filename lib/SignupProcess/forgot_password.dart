@@ -1,3 +1,4 @@
+import 'package:cryptowatch/SignupProcess/enter_otp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     borderRadius: BorderRadius.circular(12)),
                 color: PrimaryBlue,
                 onPressed: () {
-     //              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => WelcomeScreen())  , (route) => false);
+                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => OTPScreen())  );
                 },
                 minWidth: double.infinity,
                 padding: EdgeInsets.symmetric(
@@ -69,7 +70,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   'Continue',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600),
                 ),
               ),
