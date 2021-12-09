@@ -1,3 +1,4 @@
+import 'package:cryptowatch/OtherScreens/setting_screen.dart';
 import 'package:cryptowatch/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -14,7 +15,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     Text('First Screen'),
     Text('Second'),
     Text('Third'),
-    Text('Fourth'),
+    SettingScreen()
   ];
   int _selectedIndex = 0;
 
@@ -27,6 +28,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(label: 'Home',
           icon: Icon(
