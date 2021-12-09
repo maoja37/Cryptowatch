@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cryptowatch/SignupProcess/reset_password.dart';
 import 'package:cryptowatch/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -160,7 +161,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   onPressed: () {
                     formKey.currentState!.validate();
                       // conditions for validating
-                      if (currentText.length != 6 || currentText != "123456") {
+                      if (currentText.length != 6) {
                         errorController!.add(ErrorAnimationType
                             .shake); // Triggering error shake animation
                         setState(() => hasError = true);
@@ -172,7 +173,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           },
                         );
                       }
-           //              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => WelcomeScreen())  , (route) => false);
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResetPassword() ) );
                   },
                   minWidth: double.infinity,
                   padding: EdgeInsets.symmetric(
