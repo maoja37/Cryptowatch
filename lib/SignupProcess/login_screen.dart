@@ -1,3 +1,4 @@
+import 'package:cryptowatch/OtherScreens/BottomNavigationScreen.dart';
 import 'package:cryptowatch/SignupProcess/forgot_password.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(12)),
                         color: PrimaryBlue,
                 onPressed: () {
-                 //  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => WelcomeScreen())  , (route) => false);
+                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => BottomNavigationScreen())  , (route) => false);
                 },
                 padding: EdgeInsets.symmetric(vertical: 22),
                 minWidth: double.infinity,

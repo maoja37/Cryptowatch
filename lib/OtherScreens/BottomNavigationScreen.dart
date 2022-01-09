@@ -32,7 +32,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(items: <BottomNavigationBarItem>[
+      bottomNavigationBar: BottomNavigationBar(showUnselectedLabels: true,  items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(label: 'Home',
           icon: Icon(
             _selectedIndex == 0 ? IconlyBold.home : IconlyLight.home,

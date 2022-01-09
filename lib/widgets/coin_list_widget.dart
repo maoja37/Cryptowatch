@@ -8,7 +8,8 @@ import 'package:iconly/iconly.dart';
 
 class CoinListWidget extends StatelessWidget {
   final Future<BigDataModel> futureCoins;
-  const CoinListWidget({Key? key, required this.futureCoins}) : super(key: key);
+  final double required_height;
+  const CoinListWidget({Key? key, required this.futureCoins,required this.required_height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class CoinListWidget extends StatelessWidget {
             if (snapshot.hasData) {
               coins = snapshot.data!.dataModel;
               return Container(
-                height: MediaQuery.of(context).size.height * 0.4905,
+                height: required_height,
                 child: ListView.separated(
                     separatorBuilder: (BuildContext context, int index) {
                       return SizedBox(

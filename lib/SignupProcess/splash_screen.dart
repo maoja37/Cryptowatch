@@ -6,28 +6,29 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
-
-
 class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-
   @override
   void initState() {
     // TODO: implement initState
-  _navigateToHome();
+    _navigateToHome();
 
     super.initState();
   }
 
-  _navigateToHome()async{
-    await Future.delayed(Duration(milliseconds: 7000), (){});
+  _navigateToHome() async {
+    await Future.delayed(Duration(milliseconds: 7000), () {});
 
-    Navigator.of(context).pushReplacement(  PageTransition(child: BottomNavigationScreen(), type: PageTransitionType.fade, duration: Duration(milliseconds: 1500), curve: Curves.fastLinearToSlowEaseIn) );
+    Navigator.of(context).pushReplacement(PageTransition(
+      child: OnboardingScreen(),
+      type: PageTransitionType.fade,
+      duration: Duration(milliseconds: 1500),
+      curve: Curves.fastLinearToSlowEaseIn,
+    ));
   }
 
   @override
@@ -36,17 +37,20 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.white,
       body: Center(
         child: DefaultTextStyle(
-    style: GoogleFonts.poppins( color: PrimaryDeepBlue, fontWeight: FontWeight.w700, fontSize: 36),
-    child: AnimatedTextKit(
-      animatedTexts: [
-        TypewriterAnimatedText('Cryptowatch', speed: Duration(milliseconds: 600), cursor: '', curve: Curves.fastLinearToSlowEaseIn),
-        
-      ],
-      
-    ),
-  ),
-        
-        
+          style: GoogleFonts.poppins(
+              color: PrimaryDeepBlue,
+              fontWeight: FontWeight.w700,
+              fontSize: 36),
+          child: AnimatedTextKit(
+            animatedTexts: [
+              TypewriterAnimatedText('Cryptowatch',
+                  speed: Duration(milliseconds: 600),
+                  cursor: '',
+                  curve: Curves.fastLinearToSlowEaseIn),
+            ],
+          ),
+        ),
+
         //Text('Cryptowatch', style: GoogleFonts.poppins( color: PrimaryDeepBlue, fontWeight: FontWeight.w700, fontSize: 36))
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:cryptowatch/OtherScreens/all_coins_screens.dart';
 import 'package:cryptowatch/constants.dart';
 import 'package:cryptowatch/models/big_data_models.dart';
 import 'package:cryptowatch/repository/repository.dart';
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double home_height = MediaQuery.of(context).size.height * 0.4905;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -45,13 +47,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontSize: 20,
                       ),
                     ),
-                    Text(
-                      'View all',
-                      style: TextStyle(fontWeight: FontWeight.w400, color: PrimaryBlue, fontSize: 16)
-                    )
+                    Text('View all',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: PrimaryBlue,
+                            fontSize: 16))
                   ],
                 ),
-                SizedBox(height: 218,),
+                SizedBox(
+                  height: 218,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -62,13 +67,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontSize: 20,
                       ),
                     ),
-                    Text(
-                      'View all',
-                      style: TextStyle(fontWeight: FontWeight.w400, color: PrimaryBlue, fontSize: 16)
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AllCoins(futureCoins)));
+                      },
+                      child: Text('View all',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: PrimaryBlue,
+                              fontSize: 16)),
                     )
                   ],
                 ),
-                CoinListWidget(futureCoins: futureCoins)
+                CoinListWidget(futureCoins: futureCoins, required_height: MediaQuery.of(context).size.height * 0.4905,)
               ],
             )),
       ),
