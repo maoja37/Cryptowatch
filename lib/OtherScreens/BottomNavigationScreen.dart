@@ -3,6 +3,9 @@ import 'package:cryptowatch/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
+import 'home_screen.dart';
+
+
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({Key? key}) : super(key: key);
 
@@ -12,7 +15,7 @@ class BottomNavigationScreen extends StatefulWidget {
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   List<Widget> _screens = [
-    Text('First Screen'),
+    HomeScreen(),
     Text('Second'),
     Text('Third'),
     SettingScreen()
