@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(Duration(milliseconds: 7000), () {});
 
     Navigator.of(context).pushReplacement(PageTransition(
-      child: OnboardingScreen(),
+      child: BottomNavigationScreen(),
       type: PageTransitionType.fade,
       duration: Duration(milliseconds: 1500),
       curve: Curves.fastLinearToSlowEaseIn,

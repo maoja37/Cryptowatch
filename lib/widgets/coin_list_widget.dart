@@ -1,18 +1,26 @@
 import 'package:cryptowatch/models/big_data_models.dart';
 import 'package:cryptowatch/models/data_model.dart';
+import 'package:cryptowatch/provider/crypto_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:iconly/iconly.dart';
+import 'package:provider/provider.dart';
 
 class CoinListWidget extends StatelessWidget {
   final Future<BigDataModel> futureCoins;
   final double required_height;
-  const CoinListWidget({Key? key, required this.futureCoins,required this.required_height}) : super(key: key);
+  const CoinListWidget(
+      {Key? key, required this.futureCoins, required this.required_height})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CryptoProviders>(context);
+    final magic = provider.watchlistStrings;
+    final provider2 = Provider.of<CryptoProviders>(context, listen: false);
+
     List<DataModel> coins;
     var coinIconUrl =
         'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/';
@@ -59,11 +67,17 @@ class CoinListWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text(
-                                  coins[index].name,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
+                                SizedBox(
+                                  width: 120,
+                                  child: Text(
+                                    coins[index].name,
+                                    
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: 5),
@@ -88,34 +102,45 @@ class CoinListWidget extends StatelessWidget {
                                   child: Container(
                                     width: double.infinity,
                                   ),
-                                ), 
-                                Row(
-                              children: [
-                                Text(
-                                  coins[index]
-                                          .quoteModel
-                                          .usdModel
-                                          .percentageChange_7d
-                                          .toStringAsFixed(2) +
-                                      '%',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: coins[index]
-                                                  .quoteModel
-                                                  .usdModel
-                                                  .percentageChange_7d >=
-                                              0
-                                          ? Color(0xff4caf50)
-                                          : Color(0xffe52f15),
-                                      fontWeight: FontWeight.w400),
                                 ),
-                                SizedBox(width: 10),
-                                Icon(
-                                  IconlyLight.star,
-                                  size: 25,
-                                )
-                              ],
-                            ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      coins[index]
+                                              .quoteModel
+                                              .usdModel
+                                              .percentageChange_7d
+                                              .toStringAsFixed(2) +
+                                          '%',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: coins[index]
+                                                      .quoteModel
+                                                      .usdModel
+                                                      .percentageChange_7d >=
+                                                  0
+                                              ? Color(0xff4caf50)
+                                              : Color(0xffe52f15),
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(width: 10),
+                                    IconButton(
+                                      icon: magic.contains(coins[index].symbol)
+                                          ? Icon(IconlyBold.star)
+                                          : Icon(IconlyLight.star),
+                                      color: magic.contains(coins[index].symbol)
+                                          ? Color(0xffF7936F)
+                                          : Colors.grey,
+                                      onPressed: () {
+                                        magic.contains(coins[index].symbol)
+                                            ? provider2
+                                                .removeCoin(coins[index].symbol)
+                                            : provider2
+                                                .addCoin(coins[index].symbol);
+                                      },
+                                    )
+                                  ],
+                                ),
                               ],
                             ))
                           ],
