@@ -22,7 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     repository = Repository();
     futureCoins = repository.getCoins();
-    
 
     super.initState();
   }
@@ -77,7 +76,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AllCoins(futureCoins,allStringSymbol )));
+                            builder: (context) =>
+                                AllCoins(futureCoins, allStringSymbol)));
                       },
                       child: Text('View all',
                           style: TextStyle(
