@@ -1,9 +1,11 @@
 import 'package:cryptowatch/OtherScreens/all_coins_screens.dart';
 import 'package:cryptowatch/constants.dart';
 import 'package:cryptowatch/models/big_data_models.dart';
+import 'package:cryptowatch/provider/crypto_pro.dart';
 import 'package:cryptowatch/repository/repository.dart';
 import 'package:cryptowatch/widgets/coin_list_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,12 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     repository = Repository();
     futureCoins = repository.getCoins();
+    
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     double home_height = MediaQuery.of(context).size.height * 0.4905;
+    final provider = Provider.of<CryptoProviders>(context, listen: false);
+    provider.setFutureCoins = futureCoins;
+    final allStringSymbol = provider.allStrings;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -70,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AllCoins(futureCoins)));
+                            builder: (context) => AllCoins(futureCoins,allStringSymbol )));
                       },
                       child: Text('View all',
                           style: TextStyle(
@@ -80,7 +87,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   ],
                 ),
-                CoinListWidget(futureCoins: futureCoins, required_height: MediaQuery.of(context).size.height * 0.4905,)
+                CoinListWidget(
+                  futureCoins: futureCoins,
+                  required_height: MediaQuery.of(context).size.height * 0.4905,
+                  required_list: allStringSymbol,
+                ),
               ],
             )),
       ),

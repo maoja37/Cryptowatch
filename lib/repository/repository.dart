@@ -8,6 +8,8 @@ class Repository{
  var currencyListingAPI  = '${mainUrl}cryptocurrency/listings/latest';
 
  Dio _dio = Dio();
+ 
+ //Method used to get a future of list of data of coins 
  Future<BigDataModel> getCoins() async{
    try {
      _dio.options.headers['X-CMC_PRO_API_KEY'] = apiKey;
@@ -16,7 +18,7 @@ class Repository{
      return BigDataModel.fromJson(response.data);
    } catch (error, stackTrace) {
      print('Exception $error , dd $stackTrace');
-     return BigDataModel.withError(' ');
+     return BigDataModel.withError('');
    }
  }
 }

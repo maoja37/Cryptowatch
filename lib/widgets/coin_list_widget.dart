@@ -11,9 +11,11 @@ import 'package:provider/provider.dart';
 class CoinListWidget extends StatelessWidget {
   final Future<BigDataModel> futureCoins;
   final double required_height;
+  final List<String> required_list;
   const CoinListWidget(
-      {Key? key, required this.futureCoins, required this.required_height})
+      {Key? key, required this.futureCoins, required this.required_height, required this.required_list  })
       : super(key: key);
+      
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class CoinListWidget extends StatelessWidget {
     final provider2 = Provider.of<CryptoProviders>(context, listen: false);
 
     List<DataModel> coins;
-    var coinIconUrl =
+    var coinIconUrl = 
         'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/';
 
     return FutureBuilder<BigDataModel>(
@@ -31,22 +33,28 @@ class CoinListWidget extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
               coins = snapshot.data!.dataModel;
+              provider2.addAllCoinSymbol(coins);
               return Container(
-                height: required_height,
+                height: 500,
                 child: ListView.separated(
+                  cacheExtent: 20000,
+                  shrinkWrap: true,
+                  physics: required_list.length < 9 ? NeverScrollableScrollPhysics() : ClampingScrollPhysics(),
                     separatorBuilder: (BuildContext context, int index) {
                       return SizedBox(
                         height: 12,
                       );
                     },
                     itemCount: coins.length,
-                    itemBuilder: (context, index) {
-                      return Container(
+                    itemBuilder: (context, index)  {
+                      if (required_list.contains(coins[index].symbol))
+                      return  Container(
                         padding: EdgeInsets.all(12),
                         width: double.infinity,
                         height: 64,
                         child: Row(
                           children: [
+                          
                             CachedNetworkImage(
                                 imageUrl:
                                     (coinIconUrl + coins[index].symbol + '.png')
@@ -145,7 +153,7 @@ class CoinListWidget extends StatelessWidget {
                             ))
                           ],
                         ),
-                      );
+                      ); else return SizedBox(height: 0,);
                     }),
               );
             } else if (snapshot.hasError) {

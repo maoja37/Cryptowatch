@@ -1,4 +1,5 @@
 import 'package:cryptowatch/OtherScreens/setting_screen.dart';
+import 'package:cryptowatch/OtherScreens/watchlist_screen.dart';
 import 'package:cryptowatch/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -16,7 +17,7 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   List<Widget> _screens = [
     HomeScreen(),
-    Text('Second'),
+    WatchlistScreen(),
     Text('Third'),
     SettingScreen()
   ];

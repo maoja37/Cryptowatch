@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 class AllCoins extends StatelessWidget {
-  const AllCoins(this.futureCoins, {Key? key}) : super(key: key);
+  const AllCoins(this.futureCoins,this.required_list, {Key? key}) : super(key: key);
   final Future<BigDataModel> futureCoins;
+  final List<String> required_list;
   @override
   Widget build(BuildContext context) {
     double all_coins_height = MediaQuery.of(context).size.height * 0.879;
@@ -36,6 +37,7 @@ class AllCoins extends StatelessWidget {
           CoinListWidget(
             futureCoins: futureCoins,
             required_height: all_coins_height,
+            required_list: required_list,
           )
         ]),
       ),
