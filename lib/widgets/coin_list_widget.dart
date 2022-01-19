@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cryptowatch/OtherScreens/all_coins_screens.dart';
+import 'package:cryptowatch/OtherScreens/coin_detail_screen.dart';
 import 'package:cryptowatch/models/big_data_models.dart';
 import 'package:cryptowatch/provider/crypto_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class CoinListWidget extends StatelessWidget {
@@ -27,6 +30,7 @@ class CoinListWidget extends StatelessWidget {
 
     var coinIconUrl =
         'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/';
+        
 
     return FutureBuilder<BigDataModel>(
         future: futureCoins,
@@ -51,108 +55,118 @@ class CoinListWidget extends StatelessWidget {
                   },
                   itemCount: coins.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      padding: EdgeInsets.all(12),
-                      width: double.infinity,
-                      height: 70,
-                      child: Row(
-                        children: [
-                          CachedNetworkImage(
-                              imageUrl:
-                                  (coinIconUrl + coins[index].symbol + '.png')
-                                      .toLowerCase(),
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  SvgPicture.asset(
-                                    'assets/images/Dollar_Sign.svg',
-                                    color: Colors.blue,
-                                  ),
-                              height: 40,
-                              width: 40),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                width: 120,
-                                child: Text(
-                                  coins[index].name,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                '\$' +
-                                    coins[index]
-                                        .quoteModel
-                                        .usdModel
-                                        .prices
-                                        .toStringAsFixed(2),
-                                style: TextStyle(
-                                  color: Color(0xff929292),
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                              child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  width: double.infinity,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    coins[index]
-                                            .quoteModel
-                                            .usdModel
-                                            .percentageChange_7d
-                                            .toStringAsFixed(2) +
-                                        '%',
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(PageTransition(
+                            child: CoinDetailScreen(coin: coins[index]),
+                            type: PageTransitionType.rightToLeft,
+                            duration: Duration(
+                              milliseconds: 500,
+                            )));
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(12),
+                        width: double.infinity,
+                        height: 70,
+                        child: Row(
+                          children: [
+                            CachedNetworkImage(
+                                imageUrl:
+                                    (coinIconUrl + coins[index].symbol + '.png')
+                                        .toLowerCase(),
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    SvgPicture.asset(
+                                      'assets/images/Dollar_Sign.svg',
+                                      color: Colors.blue,
+                                    ),
+                                height: 40,
+                                width: 40),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  width: 120,
+                                  child: Text(
+                                    coins[index].name,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                     style: TextStyle(
-                                        fontSize: 16,
-                                        color: coins[index]
-                                                    .quoteModel
-                                                    .usdModel
-                                                    .percentageChange_7d >=
-                                                0
-                                            ? Color(0xff4caf50)
-                                            : Color(0xffe52f15),
-                                        fontWeight: FontWeight.w400),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  SizedBox(width: 10),
-                                  IconButton(
-                                    icon: magic.contains(coins[index].symbol)
-                                        ? Icon(IconlyBold.star)
-                                        : Icon(IconlyLight.star),
-                                    color: magic.contains(coins[index].symbol)
-                                        ? Color(0xffF7936F)
-                                        : Colors.grey,
-                                    onPressed: () {
-                                      magic.contains(coins[index].symbol)
-                                          ? provider2
-                                              .removeCoin(coins[index].symbol)
-                                          : provider2
-                                              .addCoin(coins[index].symbol);
-                                    },
-                                  )
-                                ],
-                              ),
-                            ],
-                          ))
-                        ],
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  '\$' +
+                                      coins[index]
+                                          .quoteModel
+                                          .usdModel
+                                          .prices
+                                          .toStringAsFixed(2),
+                                  style: TextStyle(
+                                    color: Color(0xff929292),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    width: double.infinity,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      coins[index]
+                                              .quoteModel
+                                              .usdModel
+                                              .percentageChange_7d
+                                              .toStringAsFixed(2) +
+                                          '%',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: coins[index]
+                                                      .quoteModel
+                                                      .usdModel
+                                                      .percentageChange_7d >=
+                                                  0
+                                              ? Color(0xff4caf50)
+                                              : Color(0xffe52f15),
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(width: 10),
+                                    IconButton(
+                                      icon: magic.contains(coins[index].symbol)
+                                          ? Icon(IconlyBold.star)
+                                          : Icon(IconlyLight.star),
+                                      color: magic.contains(coins[index].symbol)
+                                          ? Color(0xffF7936F)
+                                          : Colors.grey,
+                                      onPressed: () {
+                                        magic.contains(coins[index].symbol)
+                                            ? provider2
+                                                .removeCoin(coins[index].symbol)
+                                            : provider2
+                                                .addCoin(coins[index].symbol);
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ))
+                          ],
+                        ),
                       ),
                     );
                   });

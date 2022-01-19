@@ -7,6 +7,7 @@ TextStyle DashBoardBodyBold = TextStyle();
 TextStyle DashBoardH7 = TextStyle();
 
 
+
 Color PrimaryDeepBlue = Color(0xff001666);
 Color LightPrimaryBlue = Color(0xffC7D3FF);
 Color BlueDefault = Color(0xff4C6FFF);
