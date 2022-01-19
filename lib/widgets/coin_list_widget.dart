@@ -30,7 +30,6 @@ class CoinListWidget extends StatelessWidget {
 
     var coinIconUrl =
         'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/';
-        
 
     return FutureBuilder<BigDataModel>(
         future: futureCoins,
@@ -57,12 +56,15 @@ class CoinListWidget extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(PageTransition(
+                        Navigator.of(context).push(
+                          PageTransition(
                             child: CoinDetailScreen(coin: coins[index]),
                             type: PageTransitionType.rightToLeft,
                             duration: Duration(
                               milliseconds: 500,
-                            )));
+                            ),
+                          ),
+                        );
                       },
                       child: Container(
                         padding: EdgeInsets.all(12),
