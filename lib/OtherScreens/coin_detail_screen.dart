@@ -1,3 +1,4 @@
+import 'package:cryptowatch/constants.dart';
 import 'package:cryptowatch/models/data_model.dart';
 import 'package:cryptowatch/provider/crypto_pro.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,6 +37,7 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
               Row(
                 children: [
                   IconButton(
+                    splashRadius: 10,
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -108,30 +110,54 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-
-
-
-
-
                 trailing: Text(
-                                      widget.coin
-                                              .quoteModel
-                                              .usdModel
-                                              .percentageChange_7d
-                                              .toStringAsFixed(2) +
-                                          '%',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: widget.coin
-                                                      .quoteModel
-                                                      .usdModel
-                                                      .percentageChange_7d >=
-                                                  0
-                                              ? Color(0xff4caf50)
-                                              : Color(0xffe52f15),
-                                          fontWeight: FontWeight.w400),
-                                    ),
+                  widget.coin.quoteModel.usdModel.percentageChange_7d
+                          .toStringAsFixed(2) +
+                      '%',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color:
+                          widget.coin.quoteModel.usdModel.percentageChange_7d >=
+                                  0
+                              ? Color(0xff4caf50)
+                              : Color(0xffe52f15),
+                      fontWeight: FontWeight.w400),
+                ),
               ),
+              SizedBox(
+                height: 50,
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    Text(
+                      '\$${widget.coin.quoteModel.usdModel.prices.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        color: Black6,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 14,
+                    ),
+                    Text(
+                      widget.coin.quoteModel.usdModel.percentageChange_7d
+                              .toStringAsFixed(2) +
+                          '%',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: widget.coin.quoteModel.usdModel
+                                      .percentageChange_7d >=
+                                  0
+                              ? Color(0xff4caf50)
+                              : Color(0xffe52f15),
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
