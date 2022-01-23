@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cryptowatch/OtherScreens/BottomNavigationScreen.dart';
+import 'package:cryptowatch/OtherScreens/testing_screen.dart';
 import 'package:cryptowatch/SignupProcess/OnboardingScreen.dart';
 import 'package:cryptowatch/constants.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,9 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(Duration(milliseconds: 7000), () {});
 
     Navigator.of(context).pushReplacement(PageTransition(
-      child: BottomNavigationScreen(),
+      child: 
+      //TestingScreen(),
+      BottomNavigationScreen(),
       type: PageTransitionType.fade,
       duration: Duration(milliseconds: 1500),
       curve: Curves.fastLinearToSlowEaseIn,

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cryptowatch/OtherScreens/all_coins_screens.dart';
 import 'package:cryptowatch/OtherScreens/coin_detail_screen.dart';
+import 'package:cryptowatch/coingeckomodels/cg_list_coins.dart';
 import 'package:cryptowatch/models/big_data_models.dart';
 import 'package:cryptowatch/provider/crypto_pro.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +12,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class CoinListWidget extends StatelessWidget {
-  final Future<BigDataModel> futureCoins;
+  final Future<CoinGeckoList> futureCoins;
   final double required_height;
   final List<String> required_list;
 
@@ -31,18 +32,17 @@ class CoinListWidget extends StatelessWidget {
     var coinIconUrl =
         'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/';
 
-    return FutureBuilder<BigDataModel>(
+    return FutureBuilder<CoinGeckoList>(
         future: futureCoins,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              final allCoins = snapshot.data!.dataModel;
+              final allCoins = snapshot.data!.cg_dataModel;
               provider2.addAllCoinSymbol(allCoins);
               final coins = allCoins
                   .where((element) => required_list.contains(element.symbol))
                   .toList();
               return ListView.separated(
-                  cacheExtent: 20000,
                   shrinkWrap: true,
                   physics: required_list.length < 9
                       ? NeverScrollableScrollPhysics()
@@ -79,9 +79,13 @@ class CoinListWidget extends StatelessWidget {
                                 placeholder: (context, url) =>
                                     CircularProgressIndicator(),
                                 errorWidget: (context, url, error) =>
-                                    SvgPicture.asset(
-                                      'assets/images/Dollar_Sign.svg',
-                                      color: Colors.blue,
+                                    CachedNetworkImage(
+                                      imageUrl: coins[index].image,
+                                      errorWidget: (context, url, error) =>
+                                          SvgPicture.asset(
+                                        'assets/images/Dollar_Sign.svg',
+                                        color: Colors.blue,
+                                      ),
                                     ),
                                 height: 40,
                                 width: 40),
@@ -106,12 +110,7 @@ class CoinListWidget extends StatelessWidget {
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  '\$' +
-                                      coins[index]
-                                          .quoteModel
-                                          .usdModel
-                                          .prices
-                                          .toStringAsFixed(2),
+                                  '\$' + coins[index].current_price.toString(),
                                   style: TextStyle(
                                     color: Color(0xff929292),
                                     fontWeight: FontWeight.w400,
@@ -131,17 +130,13 @@ class CoinListWidget extends StatelessWidget {
                                   children: [
                                     Text(
                                       coins[index]
-                                              .quoteModel
-                                              .usdModel
-                                              .percentageChange_7d
+                                              .price_change_percentage_7d_in_currency
                                               .toStringAsFixed(2) +
                                           '%',
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: coins[index]
-                                                      .quoteModel
-                                                      .usdModel
-                                                      .percentageChange_7d >=
+                                                      .price_change_percentage_7d_in_currency >=
                                                   0
                                               ? Color(0xff4caf50)
                                               : Color(0xffe52f15),

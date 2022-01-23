@@ -5,3 +5,4 @@ class ChartData {
   ChartData(this.value, this.year);
 }
 
+               

@@ -1,3 +1,4 @@
+import 'package:cryptowatch/coingeckomodels/cg_data_model.dart';
 import 'package:cryptowatch/constants.dart';
 import 'package:cryptowatch/models/data_model.dart';
 import 'package:cryptowatch/provider/crypto_pro.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class CoinDetailScreen extends StatefulWidget {
-  final DataModel coin;
+  final CoinGeckoDataModel coin;
   const CoinDetailScreen({Key? key, required this.coin}) : super(key: key);
 
   @override
@@ -104,20 +105,20 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                 ),
                 subtitle: Text(
                   '\$' +
-                      widget.coin.quoteModel.usdModel.prices.toStringAsFixed(2),
+                      widget.coin.current_price.toString(),
                   style: TextStyle(
                     color: Color(0xff929292),
                     fontWeight: FontWeight.w400,
                   ),
                 ),
                 trailing: Text(
-                  widget.coin.quoteModel.usdModel.percentageChange_7d
+                  widget.coin.price_change_percentage_7d_in_currency
                           .toStringAsFixed(2) +
                       '%',
                   style: TextStyle(
                       fontSize: 16,
                       color:
-                          widget.coin.quoteModel.usdModel.percentageChange_7d >=
+                          widget.coin.price_change_percentage_7d_in_currency >=
                                   0
                               ? Color(0xff4caf50)
                               : Color(0xffe52f15),
@@ -129,10 +130,10 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
               ),
               Container(
                 alignment: Alignment.center,
-                child: Column(
+                child: Column(  
                   children: [
                     Text(
-                      '\$${widget.coin.quoteModel.usdModel.prices.toStringAsFixed(2)}',
+                      '\$${widget.coin.current_price.toStringAsFixed(2)}',
                       style: TextStyle(
                         color: Black6,
                         fontSize: 24,
@@ -143,20 +144,19 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                       height: 14,
                     ),
                     Text(
-                      widget.coin.quoteModel.usdModel.percentageChange_7d
+                      widget.coin.price_change_percentage_7d_in_currency
                               .toStringAsFixed(2) +
                           '%',
                       style: TextStyle(
                           fontSize: 16,
-                          color: widget.coin.quoteModel.usdModel
-                                      .percentageChange_7d >=
+                          color: widget.coin.price_change_percentage_7d_in_currency >=
                                   0
                               ? Color(0xff4caf50)
                               : Color(0xffe52f15),
                           fontWeight: FontWeight.w400),
                     ),
-                  ],
-                ),
+                  ],   
+                ),  
               )
             ],
           ),

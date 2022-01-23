@@ -1,4 +1,5 @@
 import 'package:cryptowatch/OtherScreens/all_coins_screens.dart';
+import 'package:cryptowatch/coingeckomodels/cg_list_coins.dart';
 import 'package:cryptowatch/constants.dart';
 import 'package:cryptowatch/models/big_data_models.dart';
 import 'package:cryptowatch/provider/crypto_pro.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<BigDataModel> futureCoins;
+  late Future<CoinGeckoList> futureCoins;
   late Repository repository;
   @override
   void initState() {
