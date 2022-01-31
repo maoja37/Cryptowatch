@@ -11,7 +11,7 @@ class CryptoProviders extends ChangeNotifier {
   List<String> _allStrings = [];
   //this stores the string symbols that will be used to identify coins added to the watchlist
   List<String> _watchlistStrings = [
-    "BTC",
+    "bitcoin",
   ];
 
 //getter methods to get list of of allStringSymbol and watchlistStringSymbol
@@ -19,25 +19,25 @@ class CryptoProviders extends ChangeNotifier {
   List<String> get watchlistStrings => _watchlistStrings;
 
 //method to collect coin symbol and add it to list of watchlist
-  void addCoin(String coinSymbol) {
-    _watchlistStrings.add(coinSymbol);
+  void addCoin(String coinId) {
+    _watchlistStrings.add(coinId);
+   
 
     notifyListeners();
   }
 //method to remove coin symbol from the list of watchlist
-  void removeCoin(String coinSymbol) {
-    _watchlistStrings.remove(coinSymbol);
+  void removeCoin(String coinId) {
+    _watchlistStrings.remove(coinId);
 
-    notifyListeners();
+    notifyListeners(); 
   }
-//method to collect all list of coin data and store the individual symbols in list of allStringSymbols
-  void addAllCoinSymbol(List<CoinGeckoDataModel> coins) {
+//method to collect all list of coin data and store the individual symbols in list of allStringId
+  void addAllCoinId(List<CoinGeckoDataModel> coins) {
     for (var index = 0; index < coins.length; index++) {
-      if (!_allStrings.contains(coins[index].symbol))
-        _allStrings.add(coins[index].symbol);
+      if (!_allStrings.contains(coins[index].id))
+        _allStrings.add(coins[index].id);
     }
-    print(_allStrings);
-    print(_allStrings.length);
+    
   }
 
 //getter method to get futureCoins

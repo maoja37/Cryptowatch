@@ -38,9 +38,9 @@ class CoinListWidget extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
               final allCoins = snapshot.data!.cg_dataModel;
-              provider2.addAllCoinSymbol(allCoins);
+              provider2.addAllCoinId(allCoins);
               final coins = allCoins
-                  .where((element) => required_list.contains(element.symbol))
+                  .where((element) => required_list.contains(element.id))
                   .toList();
               return ListView.separated(
                   shrinkWrap: true,
@@ -144,18 +144,18 @@ class CoinListWidget extends StatelessWidget {
                                     ),
                                     SizedBox(width: 10),
                                     IconButton(
-                                      icon: magic.contains(coins[index].symbol)
+                                      icon: magic.contains(coins[index].id)
                                           ? Icon(IconlyBold.star)
                                           : Icon(IconlyLight.star),
-                                      color: magic.contains(coins[index].symbol)
+                                      color: magic.contains(coins[index].id)
                                           ? Color(0xffF7936F)
                                           : Colors.grey,
                                       onPressed: () {
-                                        magic.contains(coins[index].symbol)
+                                        magic.contains(coins[index].id)
                                             ? provider2
-                                                .removeCoin(coins[index].symbol)
+                                                .removeCoin(coins[index].id)
                                             : provider2
-                                                .addCoin(coins[index].symbol);
+                                                .addCoin(coins[index].id);
                                       },
                                     )
                                   ],

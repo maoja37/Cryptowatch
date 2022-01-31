@@ -16,7 +16,7 @@ class Repository{
     //  _dio.options.headers['X-CMC_PRO_API_KEY'] = apiKey;
     //  Response response = await _dio.get(currencyListingAPI);
      Response response = await _dio.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d%2C14d');
-     print(response.data);
+    
      return CoinGeckoList.fromJson(response.data);
      //BigDataModel.fromJson(response.data);
    } catch (error, stackTrace) {
@@ -25,5 +25,5 @@ class Repository{
    }
  }
 }
-
+   
 

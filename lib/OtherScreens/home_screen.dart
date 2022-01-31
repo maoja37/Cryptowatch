@@ -29,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double home_height = MediaQuery.of(context).size.height * 0.4905;
+   
     final provider = Provider.of<CryptoProviders>(context, listen: false);
     provider.setFutureCoins = futureCoins;
-    final allStringSymbol = provider.allStrings;
+    final allStringId = provider.allStrings;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
-                                AllCoins(futureCoins, allStringSymbol)));
+                                AllCoins(futureCoins, allStringId)));
                       },
                       child: Text('View all',
                           style: TextStyle(
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 CoinListWidget(
                   futureCoins: futureCoins,
                   required_height: MediaQuery.of(context).size.height * 0.4905,
-                  required_list: allStringSymbol,
+                  required_list: allStringId,
                 ),
               ],
             )),
