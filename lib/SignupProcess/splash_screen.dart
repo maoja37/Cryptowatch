@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cryptowatch/OtherScreens/BottomNavigationScreen.dart';
+import 'package:cryptowatch/OtherScreens/testing_screen.dart';
 
 import 'package:cryptowatch/SignupProcess/OnboardingScreen.dart';
 import 'package:cryptowatch/constants.dart';

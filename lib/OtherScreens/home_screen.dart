@@ -1,7 +1,6 @@
 import 'package:cryptowatch/OtherScreens/all_coins_screens.dart';
 import 'package:cryptowatch/coingeckomodels/cg_list_coins.dart';
 import 'package:cryptowatch/constants.dart';
-import 'package:cryptowatch/models/big_data_models.dart';
 import 'package:cryptowatch/provider/crypto_pro.dart';
 import 'package:cryptowatch/repository/repository.dart';
 import 'package:cryptowatch/widgets/coin_list_widget.dart';
