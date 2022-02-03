@@ -230,7 +230,7 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                         ToggleButton(name: '1W'),
                         ToggleButton(name: '1M'),
                         ToggleButton(name: '1Y'),
-                      ],
+                      ], 
                       isSelected: _isSelected,
                       onPressed: (int newIndex) {
                           setState(() {

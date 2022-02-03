@@ -1,77 +1,95 @@
-    import 'package:flutter/material.dart';
+import 'package:cryptowatch/constants.dart';
+import 'package:flutter/material.dart';
 
-    class TestingScreen extends StatefulWidget {
-      @override
-      State<TestingScreen> createState() => _TestingScreenState();
-    }
+class TestingScreen extends StatefulWidget {
+  @override
+  _TestingScreenState createState() => _TestingScreenState();
+}
 
-    class _TestingScreenState extends State<TestingScreen> {
-      List<bool> _isSelected = [true, false, false, false];
+class _TestingScreenState extends State<TestingScreen> {
+  //set the initial state of each button whether it is selected or not
+  List<bool> isSelected = [true, false, false, false];
+  List<IconData> iconList = [Icons.ac_unit, Icons.call, Icons.cake];
+  List<String> stringList = ['1D', '1W', '1M', '1Y'];
 
-      @override
-      Widget build(BuildContext context) {
-        return Scaffold(
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 100),
+  @override
+  Widget build(BuildContext context) {
+    //wrap the GridView wiget in an Ink wiget and set the width and height,
+    //otherwise the GridView widget will fill up all the space of its parent widget
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(40),
+        child: Center(
+          child: Container(
+            height: 40,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Time',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Black6,
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                ToggleButtons(
-                  color: Color(0xff001666),
-                  fillColor: Color(0xff001666),
-                  selectedColor: Colors.white,
-                  children: [
-                    ToggleButton(name: '1D'),
-                    ToggleButton(name: '1W'),
-                    ToggleButton(name: '1M'),
-                    ToggleButton(name: '1Y'),
-                  ],
-                  isSelected: _isSelected,
-                  onPressed: (int newIndex) {
-                    setState(() {
-                      for (int i = 0; i < _isSelected.length; i++) {
-                        if (i == newIndex) {
-                          _isSelected[i] = true;
-                        } else {
-                          _isSelected[i] = false;
-                        }
-                        print(_isSelected);
-                      }
-                    });
-                  },
-                )
+                ListView.separated(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                      //the default splashColor is grey
+                      onTap: () {
+                        //set the toggle logic
+                        setState(() {
+                          for (int indexBtn = 0;
+                              indexBtn < isSelected.length;
+                              indexBtn++) {
+                            if (indexBtn == index) {
+                              isSelected[indexBtn] = true;
+                            } else {
+                              isSelected[indexBtn] = false;
+                            }
+                          }
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          //set the background color of the button when it is selected/ not selected
+                          color: isSelected[index]
+                              ? PrimaryDeepBlue
+                              : Colors.transparent,
+                          // here is where we set the rounded corner
+                          borderRadius: BorderRadius.circular(12),
+                          //don't forget to set the border,
+                          //otherwise there will be no rounded corner
+                        ),
+                        child: Center(
+                          child: Text(
+                            stringList[index],
+                            style: TextStyle(
+                              color: isSelected[index]
+                                  ? Colors.white
+                                  : Colors.grey,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ));
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(
+                        width: 12,
+                      );
+                    },
+                    itemCount: isSelected.length)
               ],
             ),
           ),
-        );
-      }
-    }
-       
-    class ToggleButton extends StatelessWidget {
-      final String name;
-      const ToggleButton({Key? key, required this.name}) : super(key: key);
-
-      @override
-      Widget build(BuildContext context) {
-        return Container(
-          width: MediaQuery.of(context).size.width * 0.1,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-          padding: EdgeInsets.symmetric(vertical: 4),
-          alignment: Alignment.center,
-          child: Text(
-            name,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        );
-      }
-    }  
+        ),
+      ),
+    );
+  }
+}

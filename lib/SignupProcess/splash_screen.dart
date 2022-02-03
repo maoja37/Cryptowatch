@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     _navigateToHome();
-
+ 
     super.initState();
   }
 
@@ -27,8 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Navigator.of(context).pushReplacement(PageTransition(
       child: 
-      //TestingScreen(),
-      BottomNavigationScreen(),
+      TestingScreen(),
+      //BottomNavigationScreen(),
       type: PageTransitionType.fade,
       duration: Duration(milliseconds: 1500),
       curve: Curves.fastLinearToSlowEaseIn,
