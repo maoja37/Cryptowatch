@@ -23,9 +23,9 @@ class _TestingScreenState extends State<TestingScreen> {
           child: Container(
             height: 40,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              
               children: [
-                Text(
+                Text(   
                   'Time',
                   style: TextStyle(
                     color: Black6,
@@ -54,7 +54,7 @@ class _TestingScreenState extends State<TestingScreen> {
                         });
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 4),
                         decoration: BoxDecoration(
                           //set the background color of the button when it is selected/ not selected
                           color: isSelected[index]
