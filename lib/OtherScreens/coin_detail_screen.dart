@@ -3,6 +3,7 @@ import 'package:cryptowatch/coingeckomodels/cg_data_model.dart';
 import 'package:cryptowatch/constants.dart';
 import 'package:cryptowatch/models/data_model.dart';
 import 'package:cryptowatch/provider/crypto_pro.dart';
+import 'package:cryptowatch/widgets/coin_volume_24h_card.dart';
 import 'package:cryptowatch/widgets/toggle_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,9 @@ class CoinDetailScreen extends StatefulWidget {
 }
 
 class _CoinDetailScreenState extends State<CoinDetailScreen> {
-  List<bool> _isSelected = [true, false, false, false];
+  List<bool> isSelected = [true, false, false, false];
+  List<String> stringList = ['1D', '1W', '1M', '1Y'];
+  List<int> indexList = [0, 1, 2, 3];
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CryptoProviders>(context);
@@ -164,7 +167,13 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                 ),
               ),
               FutureBuilder<List<ChartData>>(
-                future: getDayList(),
+                future: isSelected[0] || isSelected[1]
+                    ? isSelected[0]
+                        ? getDayList()
+                        : getWeekList()
+                    : isSelected[2]
+                        ? getMonthList()
+                        : getYearList(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Container(
@@ -220,31 +229,88 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    ToggleButtons(
-                      
-                      color: PrimaryDeepBlue,
-                      fillColor: PrimaryDeepBlue,
-                      selectedColor: Colors.white,
-                      children: [
-                        ToggleButton(name: '1D'),
-                        ToggleButton(name: '1W'),
-                        ToggleButton(name: '1M'),
-                        ToggleButton(name: '1Y'),
-                      ], 
-                      isSelected: _isSelected,
-                      onPressed: (int newIndex) {
-                          setState(() {
-                            for (int i = 0; i < _isSelected.length; i++) {
-                              if (i == newIndex) {
-                                _isSelected[i] = true;
-                              } else {
-                                _isSelected[i] = false;
-                              }
-                              print(_isSelected);
-                            }
-                          });
-                        },
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Wrap(
+                      spacing: 12,
+                      children: indexList
+                          .map(
+                            (index) => GestureDetector(
+                              //the default splashColor is grey
+                              onTap: () {
+                                //set the toggle logic
+                                setState(() {
+                                  for (int indexBtn = 0;
+                                      indexBtn < isSelected.length;
+                                      indexBtn++) {
+                                    if (indexBtn == index) {
+                                      isSelected[indexBtn] = true;
+                                    } else {
+                                      isSelected[indexBtn] = false;
+                                    }
+                                  }
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 14, vertical: 8),
+                                decoration: BoxDecoration(
+                                  //set the background color of the button when it is selected/ not selected
+                                  color: isSelected[index]
+                                      ? PrimaryDeepBlue
+                                      : Colors.transparent,
+                                  // here is where we set the rounded corner
+                                  borderRadius: BorderRadius.circular(12),
+                                  //don't forget to set the border,
+                                  //otherwise there will be no rounded corner
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    stringList[index],
+                                    style: TextStyle(
+                                      color: isSelected[index]
+                                          ? Colors.white
+                                          : Black6,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
                     )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 64,
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'Volume 24H',
+                    style: TextStyle(
+                      color: Black3,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CoinVolumeCard(
+                      position: 'High',
+                      pos_24h: widget.coin.high_24h,
+                    ),
                   ],
                 ),
               )
@@ -268,7 +334,7 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
     result.data.forEach((element) {
       oneDayRes.add(ChartData(element.date, element.price));
     });
-
+    print('return day list');
     return oneDayRes;
   }
 
@@ -284,6 +350,7 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
     result.data.forEach((element) {
       oneWeekRes.add(ChartData(element.date, element.price));
     });
+    print('return week list');
     return oneWeekRes;
   }
 
@@ -299,6 +366,7 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
     result.data.forEach((element) {
       oneMonthRes.add(ChartData(element.date, element.price));
     });
+    print('return month list');
     return oneMonthRes;
   }
 
@@ -313,6 +381,7 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
     result.data.forEach((element) {
       oneYearRes.add(ChartData(element.date, element.price));
     });
+    print('return yeat list');
     return oneYearRes;
   }
 }

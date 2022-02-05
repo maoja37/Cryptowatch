@@ -8,7 +8,6 @@ class CoinGeckoDataModel {
   num current_price;
   num market_cap;
   num market_cap_rank;
-
   num total_volume;
   num high_24h;
   num low_24h;
