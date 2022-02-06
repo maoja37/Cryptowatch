@@ -237,7 +237,7 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                       children: indexList
                           .map(
                             (index) => GestureDetector(
-                              //the default splashColor is grey
+                              
                               onTap: () {
                                 //set the toggle logic
                                 setState(() {
@@ -310,6 +310,10 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                     CoinVolumeCard(
                       position: 'High',
                       pos_24h: widget.coin.high_24h,
+                    ),
+                     CoinVolumeCard(
+                      position: 'Low',
+                      pos_24h: widget.coin.low_24h,
                     ),
                   ],
                 ),
