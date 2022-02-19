@@ -237,7 +237,6 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                       children: indexList
                           .map(
                             (index) => GestureDetector(
-                              
                               onTap: () {
                                 //set the toggle logic
                                 setState(() {
@@ -301,7 +300,9 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
@@ -311,13 +312,75 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                       position: 'High',
                       pos_24h: widget.coin.high_24h,
                     ),
-                     CoinVolumeCard(
+                    CoinVolumeCard(
                       position: 'Low',
                       pos_24h: widget.coin.low_24h,
                     ),
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Divider(
+                  thickness: 1.5,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Text(
+                      'Market Cap',
+                      style:
+                          TextStyle(color: Black3, fontWeight: FontWeight.w500),
+                    ),
+                    Expanded(
+                        child: Row(
+                      children: [
+                        Expanded(child: Container()),
+                        Row(
+                          children: [
+                            Container(
+                              height: 14,
+                              width: 32,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: Color(0xffEBFBED)),
+                              child: Center(
+                                child: Text(
+                                  '${widget.coin.market_cap_change_percentage_24h.toStringAsFixed(2)}%',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff00D578)),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 12,
+                            ),
+                            Text(
+                              '\$${widget.coin.market_cap}',
+                              style: TextStyle(
+                                color: Black3,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ))
+                  ],
+                ),
+              ),
+              SizedBox(height: 40,)
             ],
           ),
         ),
@@ -333,6 +396,7 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
       id: widget.coin.id,
       vsCurrency: 'usd',
       days: 1,
+      
     );
 
     result.data.forEach((element) {
