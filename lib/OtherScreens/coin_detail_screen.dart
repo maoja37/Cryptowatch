@@ -380,7 +380,8 @@ class _CoinDetailScreenState extends State<CoinDetailScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 40,)
+              SizedBox(height: 58,),
+              Container()
             ],
           ),
         ),
